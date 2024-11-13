@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <script>
+        function loadBody(){
+            var fontStyle=['arial','monospace','cursive','algerian','courier','Cambria','Garamond','didot','candara','TaHoma','fantasy'];
+            var select=document.querySelector('select');
+            fontStyle.map((data)=>{
+                var option=document.createElement("option");
+               select.appendChild(option);
+               option.setAttribute('value',data);
+               option.setAttribute('style',`font-family:${data}`)
+               option.appendChild(document.createTextNode(data));
+            })
+        }
+        
+        function txtSize(){
+            document.getElementById("msg").style.fontSize=document.getElementById("size").value+"px";
+        }
+        function txtColor(){
+            document.getElementById("msg").style.color=document.getElementById("txtColor").value;
+        }
+        function Shadow(){
+            document.getElementById("msg").style.textShadow=`${document.getElementById("horizontalShadow").value}px
+            ${document.getElementById("verticalShadow").value}px ${document.getElementById("shadowBlurr").value}px 
+            ${document.getElementById("shadowColor").value}`;
+        }
+        function horizontalShadow(){
+            Shadow();
+        }
+        function verticalShadow(){
+            Shadow();
+        }
+        function shadowBlurr(){
+            Shadow();
+        }
+        function shadowColor(){
+            Shadow();
+        }
+         function boldfont(){
+            document.getElementById("msg").style.fontWeight="bold";
+            document.getElementById("boldfont").className="btn btn-primary btn-sm";
+       }
+        function italicfont(){
+            document.getElementById("msg").style.fontStyle ="italic";
+            document.getElementById("italicfont").className="btn btn-primary btn-sm";
+        }
+        function normalfont(){
+            document.getElementById("msg").style.fontWeight="";
+            document.getElementById("msg").style.fontStyle ="";
+            document.getElementById("italicfont").className="btn btn-light btn-sm";
+            document.getElementById("boldfont").className="btn btn-light btn-sm";
+        }
+        function font(){
+            document.getElementById("msg").style.fontFamily=document.getElementById('font').value;
+        }
+    </script>
+        <style>
+            body{
+                position: relative;
+            }
+            dt,dd{
+                color: rgb(4, 57, 138);
+            }
+            input[type='range']{
+                width: 95%;
+            }
+            .edit-tab{
+                padding: 2px;
+                display: grid;
+                grid-template-columns: 6fr 6fr;
+            }
+            .tab1{
+                background-color: rgb(40, 209, 209);
+                margin: 3px;
+                height:fit-content;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+            }
+            h5{
+                border-bottom: 1px solid darkblue;}
+            button{
+                margin-bottom: 4px;
+                width: fit-content;
+            }
+            select{
+                border-radius: 5px;
+                border: 2px solid skyblue;
+                background-color: white;
+                width: 70%;
+                height: 30px;
+            }
+            .sub-body{
+                padding: 5px;
+                display: grid;
+                grid-template-columns: 8fr 4fr;
+            }
+            input[type='color']:hover,select:hover{
+            cursor: pointer;box-shadow: black 1px 1px 7px;
+           }
+           input[type='range']:hover{
+            cursor: pointer;
+           }
+            #msg{
+                width: 100%;
+                border: none;
+                background-color: white;
+                color: black;
+                min-height: 25vh;
+                outline: 0;
+            }
+            .design{
+                position: sticky;
+                top: 0px;
+                background-color: white;
+            }
+            @media only screen and (max-width: 600px) {
+                .sub-body,.edit-tab{
+                grid-template-columns:12fr;
+              }
+              .sub-body,.design{
+                padding: 0px;
+              }
+              .design{
+                border-bottom: 2px solid darkblue;}
+            }
+            @media only screen and (max-width:200px){
+               #msg{max-height: 50vh;}
+                .design{top: -60px;}
+            }
+        </style>
+</head>
+<body onload="loadBody()">
+        <div class="sub-body text-center">
+            <div class="design">
+                <h5>Type your text below</h5>
+                <textarea id="msg"></textarea>
+            </div>
+           <div class="tab1">
+            <h5>Text Editor</h5>
+            <dl class="edit-tab">
+                <dt>Choose font color</dt>
+                <dd><input type="color" oninput="txtColor()" id="txtColor"></dd>
+                <dt>Choose shadow color</dt>
+                <dd><input type="color" id="shadowColor" oninput="shadowColor()"></dd>
+                <dt>Set size</dt>
+                <dd><input id="size" id="txtSize" value="0" oninput="txtSize()" min="17" max="70" type="range"></dd>
+                <dt>Set vertical shadow</dt>
+                <dd><input type="range" value="0" min="0" max="10" id="verticalShadow" oninput="verticalShadow()"></dd>
+                <dt>Set horizontal shadow</dt>
+                <dd><input class="col" value="0" min="0" max="10" type="range" id="horizontalShadow" oninput="horizontalShadow()"></dd>
+                <dt>Set shadow blurr</dt>
+                <dd><input type="range" value="0" min="0" max="10" id="shadowBlurr" oninput="shadowBlurr()"></dd>
+                <dt>Set font styles</dt>
+                <dd>
+                    <button class="btn btn-light btn-sm" id="boldfont" onclick="boldfont()"><b>B</b></button>
+                    <button class="btn btn-light btn-sm" id="italicfont" onclick="italicfont()"><i>I</i></button>
+                    <button class="btn btn-light btn-sm" id="normalfont" onclick="normalfont()">N</button>
+                    <select id="font" onchange="font()">
+                    </select>
+                </dd>
+            </dl>
+          </div> 
+        </div>
+</body>
+</html>
